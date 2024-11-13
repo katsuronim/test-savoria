@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('pages/home');
-});
+})->name('home');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -46,6 +46,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/apps-edit/{id}', [AppsController::class, 'edit'])->name('admin.apps-edit');
         Route::patch('/admin/apps-update/{id}', [AppsController::class, 'update'])->name('admin.apps-update');
         Route::delete('/admin/apps-destroy/{id}', [AppsController::class, 'destroy'])->name('admin.apps-destroy');
+
+        Route::get('/admin/user-app-view', [MapUserController::class, 'getUserAppView'])->name('admin.user-app-view');
+
 
         Route::get('/admin/map-apps-user', [MapUserController::class, 'index'])->name('admin.map-apps-user');
         Route::get('/admin/map-apps-user-search', [MapUserController::class, 'search'])->name('admin.map-apps-user-search');

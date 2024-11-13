@@ -6,7 +6,6 @@ use App\Models\map_users_apps;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Validator;
 
-
 class MapAppsUserRequest extends FormRequest
 {
     /**
@@ -17,22 +16,29 @@ class MapAppsUserRequest extends FormRequest
         return true;
     }
 
-     public function withValidator(Validator $validator)
+    public function withValidator(Validator $validator)
     {
         $validator->after(function ($validator) {
-             $this->validateChoice($validator);
+            $this->validateChoices($validator);
         });
     }
 
-    protected function validateChoice($validator)
+    protected function validateChoices($validator)
     {
-        $app_id = $this->input('app_id');
+        $app_ids = $this->input('app_ids', []);
         $user_id = $this->input('user_id');
 
-        $result = map_users_apps::where('app_id', $app_id)->where('user_id', $user_id)->count();
+        foreach ($app_ids as $app_id) {
+            $exists = map_users_apps::where('app_id', $app_id)->where('user_id', $user_id)->exists();
+            $data = map_users_apps::join('apps', 'map_users_apps.app_id', '=', 'apps.app_id')
+                                    ->join('users', 'map_users_apps.user_id', '=', 'users.user_id')
+                                    ->where('map_users_apps.app_id', $app_id)
+                                    ->where('map_users_apps.user_id', $user_id)
+                                    ->first();
 
-        if ($result > 0) {
-            $validator->errors()->add('app_id', 'Hak akses aplikasi yang dipilih untuk pengguna sudah terdaftar');
+            if ($exists) {
+                $validator->errors()->add('app_ids', 'Hak akses untuk aplikasi dengan nama aplikasi ' . $data->app_name . ' sudah terdaftar untuk pengguna ' . $data->user_fullname);
+            }
         }
     }
 
@@ -44,7 +50,8 @@ class MapAppsUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'app_id' => ['required'],
+            'app_ids' => ['required', 'array', 'min:1'],  // Ensure at least one checkbox is selected
+            'app_ids.*' => ['exists:apps,app_id'],        // Ensure each selected app_id exists in the apps table
             'user_id' => ['required'],
             'data_status' => ['required'],
         ];
@@ -58,9 +65,10 @@ class MapAppsUserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'app_id.required' => 'Data aplikasi harus dipilih',
-            'user_id.required' => 'Data pengguna harus dipilih',
-            'data_status.required' => 'Data status harus dipilih',
+            'app_ids.required' => 'Setidaknya satu aplikasi harus dipilih.',
+            'app_ids.*.exists' => 'Aplikasi yang dipilih tidak valid.',
+            'user_id.required' => 'Data pengguna harus dipilih.',
+            'data_status.required' => 'Data status harus dipilih.',
         ];
     }
 }

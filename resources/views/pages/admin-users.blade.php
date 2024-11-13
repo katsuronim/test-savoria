@@ -19,6 +19,9 @@
                     <a class="nav-link active" aria-current="page" href="{{ route('admin.users-read') }}">Kelola Data
                         Pengguna</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.user-app-view') }}">List Data Akses Pengguna</a>
+                </li>
             </ul>
 
             <div class="d-flex flex-column align-items-center mt-5 mb-4" style="height: 65vh">
@@ -90,7 +93,8 @@
                         </li>
                     @else
                         <li class="page-item">
-                            <a class="page-link" href="{{ $users->previousPageUrl() }}" aria-label="Previous">
+                            <a class="page-link" href="{{ $users->previousPageUrl() }}&keyword={{ request('keyword') }}"
+                                aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
@@ -98,13 +102,15 @@
 
                     @foreach ($users->getUrlRange(1, $users->lastPage()) as $page => $url)
                         <li class="page-item {{ $users->currentPage() == $page ? 'active' : '' }}">
-                            <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                            <a class="page-link"
+                                href="{{ $url }}&keyword={{ request('keyword') }}">{{ $page }}</a>
                         </li>
                     @endforeach
 
                     @if ($users->hasMorePages())
                         <li class="page-item">
-                            <a class="page-link" href="{{ $users->nextPageUrl() }}" aria-label="Next">
+                            <a class="page-link" href="{{ $users->nextPageUrl() }}&keyword={{ request('keyword') }}"
+                                aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>

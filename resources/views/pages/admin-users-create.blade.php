@@ -19,6 +19,9 @@
                     <a class="nav-link active" aria-current="page" href="{{ route('admin.users-read') }}">Kelola Data
                         Pengguna</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.user-app-view') }}">List Data Akses Pengguna</a>
+                </li>
             </ul>
             <div class="mx-auto" style="width: 60%">
                 <h1 class="d-flex justify-content-center fs-4 mt-5 fw-bold">Tambah Data Pengguna</h1>

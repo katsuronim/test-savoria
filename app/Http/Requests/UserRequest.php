@@ -25,7 +25,6 @@ class UserRequest extends FormRequest
             'user_code' => ['required', 'unique:Users,user_code,' . $this->route('id') . ',user_id'],
             'user_fullname' => ['required'],
             'departement' => ['required'],
-            'user_password' => ['required'],
             'data_status' => ['required'],
         ];
     }
@@ -41,7 +40,6 @@ class UserRequest extends FormRequest
             'user_code.required' => 'Kode pengguna harus diisi',
             'user_code.unique' => 'Kode pengguna harus unik',
             'departement.required' => 'Departemen pengguna harus diisi',
-            'user_password.required' => 'Password pengguna harus diisi',
             'data_status.required' => 'Data status harus dipilih',
         ];
     }

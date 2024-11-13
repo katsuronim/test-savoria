@@ -18,6 +18,9 @@
                     <a class="nav-link active" aria-current="page" href="{{ route('admin.users-read') }}">Kelola Data
                         Pengguna</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.user-app-view') }}">List Data Akses Pengguna</a>
+                </li>
             </ul>
             <div class="mx-auto" style="width: 60%">
                 <h1 class="d-flex justify-content-center fs-4 mt-5 fw-bold">Ubah Data Pengguna</h1>
@@ -59,7 +62,7 @@
                     <div class="mb-3">
                         <label for="user_password" class="form-label">{{ __('Password') }}</label>
                         <input id="user_password" class="form-control" type="password" name="user_password"
-                            value="{{ old('user_password') }}" required autofocus />
+                            value="{{ old('user_password') }}" autofocus />
                         @error('user_password')
                             <div class="text-danger mt-2">{{ $message }}</div>
                         @enderror

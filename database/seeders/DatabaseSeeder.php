@@ -98,21 +98,21 @@ class DatabaseSeeder extends Seeder
             'app_name' => 'X',
             'app_group' => 'Social Media',
             'app_url' => 'https://twitter.com/?lang=id',
-            'data_status' => TRUE,
+            'data_status' => 1,
         ]);
         \App\Models\apps::create([
             'app_code' => 'app_002',
             'app_name' => 'Instagram',
             'app_group' => 'Social Media',
             'app_url' => 'https://www.instagram.com/',
-            'data_status' => TRUE,
+            'data_status' => 1,
         ]);
         \App\Models\apps::create([
             'app_code' => 'app_003',
             'app_name' => 'YouTube',
             'app_group' => 'Social Media',
             'app_url' => 'https://www.youtube.com/',
-            'data_status' => TRUE,
+            'data_status' => 1,
         ]);
 
         // Data Aplikasi Artificial Intelligence //
@@ -121,14 +121,14 @@ class DatabaseSeeder extends Seeder
             'app_name' => 'ChatGPT',
             'app_group' => 'Artificial Intelligence',
             'app_url' => 'https://chatgpt.com/',
-            'data_status' => TRUE,
+            'data_status' => 1,
         ]);
         \App\Models\apps::create([
             'app_code' => 'app_005',
             'app_name' => 'Gemini',
             'app_group' => 'Artificial Intelligence',
             'app_url' => 'https://gemini.google.com/',
-            'data_status' => TRUE,
+            'data_status' => 1,
         ]);
 
         // Data Aplikasi Project Management //
@@ -137,14 +137,66 @@ class DatabaseSeeder extends Seeder
             'app_name' => 'Trello',
             'app_group' => 'Project Management',
             'app_url' => 'https://trello.com/',
-            'data_status' => TRUE,
+            'data_status' => 1,
         ]);
         \App\Models\apps::create([
             'app_code' => 'app_007',
             'app_name' => 'OpenProject',
             'app_group' => 'Project Management',
             'app_url' => 'https://www.openproject.org/',
-            'data_status' => TRUE,
+            'data_status' => 1,
+        ]);
+
+        // Data Map User App //
+        \App\Models\map_users_apps::create([
+            'app_id' => 1,
+            'user_id' => 2,
+            'data_status' => 1,
+        ]);
+        \App\Models\map_users_apps::create([
+            'app_id' => 2,
+            'user_id' => 2,
+            'data_status' => 1,
+        ]);
+        \App\Models\map_users_apps::create([
+            'app_id' => 3,
+            'user_id' => 2,
+            'data_status' => 1,
+        ]);
+        \App\Models\map_users_apps::create([
+            'app_id' => 4,
+            'user_id' => 2,
+            'data_status' => 0,
+        ]);
+        \App\Models\map_users_apps::create([
+            'app_id' => 5,
+            'user_id' => 2,
+            'data_status' => 0,
+        ]);
+        \App\Models\map_users_apps::create([
+            'app_id' => 6,
+            'user_id' => 2,
+            'data_status' => 1,
+        ]);
+        \App\Models\map_users_apps::create([
+            'app_id' => 7,
+            'user_id' => 2,
+            'data_status' => 1,
+        ]);
+        \App\Models\map_users_apps::create([
+            'app_id' => 1,
+            'user_id' => 3,
+            'data_status' => 1,
+        ]);
+        \App\Models\map_users_apps::create([
+            'app_id' => 2,
+            'user_id' => 3,
+            'data_status' => 1,
+        ]);
+        \App\Models\map_users_apps::create([
+            'app_id' => 3,
+            'user_id' => 3,
+            'data_status' => 0,
         ]);
     }
 }

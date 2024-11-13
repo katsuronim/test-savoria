@@ -31,6 +31,11 @@ class AuthenticatedSessionController extends Controller
 
         // Memastikan user ditemukan dan password sesuai
         if ($user && Hash::check($request->password, $user->user_password)) {
+            if($user->data_status == FALSE){
+                return back()->withErrors([
+                    'user_code' => 'Account is not active',
+                    ]);
+            }
             Auth::login($user);
             $request->session()->regenerate();
             return redirect()->intended($user->getRedirectRoute());

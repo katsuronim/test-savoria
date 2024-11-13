@@ -18,6 +18,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.users-read') }}">Kelola Data Pengguna</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.user-app-view') }}">List Data Akses Pengguna</a>
+                </li>
             </ul>
 
             <div class="d-flex flex-column align-items-center mt-5 mb-4" style="height: 65vh">
@@ -93,7 +96,8 @@
                         </li>
                     @else
                         <li class="page-item">
-                            <a class="page-link" href="{{ $apps->previousPageUrl() }}" aria-label="Previous">
+                            <a class="page-link" href="{{ $apps->previousPageUrl() }}&keyword={{ request('keyword') }}"
+                                aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
@@ -101,13 +105,15 @@
 
                     @foreach ($apps->getUrlRange(1, $apps->lastPage()) as $page => $url)
                         <li class="page-item {{ $apps->currentPage() == $page ? 'active' : '' }}">
-                            <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                            <a class="page-link"
+                                href="{{ $url }}&keyword={{ request('keyword') }}">{{ $page }}</a>
                         </li>
                     @endforeach
 
                     @if ($apps->hasMorePages())
                         <li class="page-item">
-                            <a class="page-link" href="{{ $apps->nextPageUrl() }}" aria-label="Next">
+                            <a class="page-link" href="{{ $apps->nextPageUrl() }}&keyword={{ request('keyword') }}"
+                                aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>
