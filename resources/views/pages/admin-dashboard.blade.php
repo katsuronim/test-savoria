@@ -19,9 +19,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.user-app-view') }}">List Data Akses Pengguna</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.user-app-view') }}">List Data Akses Pengguna</a>
-                </li>
             </ul>
             <div class="d-flex flex-column align-items-center justify-content-center" style="height: 70vh">
                 <div class="text-center" style="width: 50%;">

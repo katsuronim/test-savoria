@@ -110,25 +110,49 @@ class MapUserController extends Controller
         return view('pages.admin-mapapps-edit', compact('maps', 'users', 'apps'));
     }
 
-    public function update(MapAppsUserRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        $request->validate([
+            'app_id' => 'required',
+            'user_id' => 'required',
+            'data_status' => 'required',
+        ], [
+            'app_id.required' => 'Aplikasi harus dipilih.',
+            'user_id.required' => 'Pengguna harus dipilih.',
+            'data_status.required' => 'Status data harus diisi.',
+        ]);
+
+        $existingEntry = map_users_apps::where('app_id', $request->app_id)
+                                        ->where('user_id', $request->user_id)
+                                        ->where('id', '!=', $id)
+                                        ->first();
+
+        if ($existingEntry) {
+            return redirect()->back()->withErrors(['app_id' => 'Kombinasi aplikasi dan pengguna ini sudah ada.']);
+        }
+
+        // Cari data berdasarkan ID, jika tidak ditemukan akan menampilkan error 404
         $maps = map_users_apps::findOrFail($id);
 
+        // Ambil informasi tambahan untuk pesan sukses
         $data = map_users_apps::join('users', 'map_users_apps.user_id', '=', 'users.user_id')
-                                ->join('apps', 'map_users_apps.app_id', '=', 'apps.app_id')
-                                ->findOrFail($id);;
+                              ->join('apps', 'map_users_apps.app_id', '=', 'apps.app_id')
+                              ->findOrFail($id);
 
+        // Update data
         $maps->app_id = $request->app_id;
         $maps->user_id = $request->user_id;
         $maps->data_status = $request->data_status;
 
         $maps->save();
 
+        // Pesan sukses
         toastr()->success('Data hak akses aplikasi ' . $data->app_name . ' untuk pengguna ' . $data->user_fullname . ' berhasil disimpan!');
 
-        // Redirect with success message or return a response
+        // Redirect ke halaman map apps user
         return redirect()->route('admin.map-apps-user');
     }
+
 
     public function destroy($id)
     {

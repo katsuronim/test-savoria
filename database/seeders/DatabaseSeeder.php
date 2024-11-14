@@ -17,7 +17,14 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\User::create([
             'user_code' => 'admin_001',
-            'user_fullname' => 'Admin',
+            'user_fullname' => 'Admin 1',
+            'departement' => 'Administrator',
+            'user_password' => Hash::make('admin1234'),
+            'data_status' => 1,
+        ]);
+        \App\Models\User::create([
+            'user_code' => 'admin_002',
+            'user_fullname' => 'Admin 2',
             'departement' => 'Administrator',
             'user_password' => Hash::make('admin1234'),
             'data_status' => 0,
@@ -36,7 +43,7 @@ class DatabaseSeeder extends Seeder
             'user_fullname' => 'Budi Budiyanto',
             'departement' => 'Teknologi Informasi',
             'user_password' => Hash::make('12345678'),
-            'data_status' => 1,
+            'data_status' => 0,
         ]);
         \App\Models\User::create([
             'user_code' => 'user_003',
